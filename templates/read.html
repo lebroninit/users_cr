@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <title>Read</title>
+    </head>
+    <body>
+        <h1>All Users</h1>
+        <table class="table table-striped " >
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Created At</th>
+            </tr>
+            {% for one_user in all_users %}
+            <tr>
+                <th scope="row">{{one_user.id}}</th>
+                <td>{{one_user.first_name}} {{one_user.last_name}}</td>
+                <td>{{one_user.email}}</td>
+                <td>{{one_user.created_at}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <form action="/sendTo" method="post">
+            <input type="submit" value="Create User">
+        </form>
+        
+    </body>
+</html>
