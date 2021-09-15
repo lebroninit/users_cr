@@ -13,19 +13,31 @@ class User:
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
-        # make sure to call the connectToMySQL function with the schema you are targeting.
         results = connectToMySQL('users_schema').query_db(query)
-        # Create an empty list to append our instances of friends
         users = []
-        # Iterate over the db results and create instances of friends with cls.
         for user in results:
             users.append( cls(user) )
         return users
-            
 
-    
+    @classmethod
+    def get_user(cls, id):
+        query = f"SELECT * FROM users WHERE id = {id}"
+        result = connectToMySQL('users_schema').query_db(query)
+        return result
+
     @classmethod
     def save(cls, data ):
         query = "INSERT INTO users ( first_name , last_name , email , created_at, updated_at ) VALUES ( %(fname)s , %(lname)s , %(email)s , NOW() , NOW() );"
         # data is a dictionary that will be passed into the save method from server.py
         return connectToMySQL('users_schema').query_db( query, data )
+
+    @classmethod
+    def update(cls, data):
+        query = "UPDATE users SET first_name = %(fname)s, last_name = %(lname)s, email = %(email)s WHERE id = %(id)s"
+
+        return connectToMySQL('users_schema').query_db( query, data )
+
+    @classmethod
+    def delete(cls,id):
+        query = f"DELETE FROM users WHERE id = {id}"
+        return connectToMySQL('users_schema').query_db(query)

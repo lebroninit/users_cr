@@ -15,6 +15,7 @@
                 <th scope="col">Full Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Created At</th>
+                <th scope="col">Actions</th>
             </tr>
             {% for one_user in all_users %}
             <tr>
@@ -22,10 +23,24 @@
                 <td>{{one_user.first_name}} {{one_user.last_name}}</td>
                 <td>{{one_user.email}}</td>
                 <td>{{one_user.created_at}}</td>
+                <td>
+                    <form action="/sendToUser" method="post">
+                        <input type="hidden" value={{one_user.id}} name="id">
+                        <input type="submit" value="Show">
+                    </form>
+                    <form action="/sendToEdit" method="post">
+                        <input type="hidden" value={{one_user.id}} name="id">
+                        <input type="submit" value="Edit">
+                    </form>
+                    <form action="/delete" method="post">
+                        <input type="hidden" value={{one_user.id}} name="id">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </table>
-        <form action="/sendTo" method="post">
+        <form action="/sendToCreate" method="post">
             <input type="submit" value="Create User">
         </form>
         
